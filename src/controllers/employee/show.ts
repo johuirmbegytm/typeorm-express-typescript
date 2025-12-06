@@ -1,27 +1,15 @@
 import { Request, Response, NextFunction } from 'express';
-import { getRepository } from 'typeorm';
-
-import { Employee } from 'orm/entities/employee/employee'; 
-import { CustomError } from 'utils/response/custom-error/CustomError';
+import { employeeService } from '../../services/EmployeeService';
+import { EmployeeResponseDTO } from '../../dto/EmployeeResponseDTO';
+import { CustomError } from '../../utils/response/custom-error/CustomError';
 
 export const show = async (req: Request, res: Response, next: NextFunction) => {
-  const id_employee = req.params.id; // ID беремо з параметрів
-
-  const employeeRepository = getRepository(Employee);
+  const id = parseInt(req.params.id);
   try {
-    const employee = await employeeRepository.findOne({
-      where: { id_employee },
-      select: ['id_employee', 'firstname', 'lastname', 'patronymic', 'phone', 'hire_date'],
-      relations: ['position'], // Завантажуємо дані посади
-    });
-
-    if (!employee) {
-      const customError = new CustomError(404, 'General', `Employee with id:${id_employee} not found.`, ['Employee not found.']);
-      return next(customError);
-    }
-    res.customSuccess(200, 'Employee found', employee);
+    const employee = await employeeService.show(id);
+    if (!employee) return next(new CustomError(404, 'Not Found', 'Employee not found'));
+    res.customSuccess(200, 'Employee found', new EmployeeResponseDTO(employee));
   } catch (err) {
-    const customError = new CustomError(400, 'Raw', 'Error', null, err);
-    return next(customError);
+    next(err);
   }
 };

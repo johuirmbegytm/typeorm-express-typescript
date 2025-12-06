@@ -1,5 +1,5 @@
-export * from './create';
-export * from './destroy';
-export * from './edit';
-export * from './list';
-export * from './show';
+export { create } from './create';
+export { list } from './list';
+export { show } from './show';
+export { edit } from './edit';
+export { destroy } from './destroy';
