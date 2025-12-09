@@ -1,83 +1,43 @@
-#  TypeORM / Express / TypeScript RESTful API boilerplate
+# Лабораторно-практична робота №4
+## Дослідження бойлерплейту бекенд-додатку
+### Мета: Отримати практичні навички розгортання, запуску та перевірки готового контейнеризованого бекенд-проєкту, включаючи роботу з початковими даними та механізмами авторизації.
 
-[![CI][build-badge]][build-url]
-[![TypeScript][typescript-badge]][typescript-url]
-[![prettier][prettier-badge]][prettier-url]
-![Heisenberg](misc/heisenberg.png)
+1.	Клоную репозиторій та, дотримуючись інструкцій з README.md запускаю проєкт однією командою через Docker Compose
 
-Boilerplate with focus on best practices and painless developer experience:
+  1
 
-- Minimal setup that can be extended 🔧
-- Spin it up with single command 🌀
-- TypeScript first
-- RESTful APIs
-- JWT authentication with role based authorization
+  2
 
-## Requirements
+  3
 
-- [Node v16+](https://nodejs.org/)
-- [Docker](https://www.docker.com/)
+  4
 
-## Running
+  Вигляд в браузері за адресою: http://localhost:4000
 
-_Easily set up a local development environment with single command!_
+2.	Перевіряю бази даних.
 
-- clone the repo
-- `npm run docker:dev` 🚀
+  За допомогою pgAdmin підключаюся до бази даних, що працює у контейнері. Переконуюсь, що проєкт не тільки успішно створив таблиці, але й наповнив їх початковими даними (сідами).
 
-Visit [localhost:4000](http://localhost:4000/) or if using Postman grab [config](/postman).
+  5
 
-### _What happened_ 💥
+  Створюємо міграції та сід, за допомогою команд:
 
-Containers created:
+  6
 
-- Postgres database container seeded with 💊 Breaking Bad characters in `Users` table (default credentials `user=walter`, `password=white` in [.env file](./.env))
-- Node (v16 Alpine) container with running boilerplate RESTful API service
-- and one Node container instance to run tests locally or in CI
+  7
 
-## Features:
+  8
 
-- [Express](https://github.com/expressjs/express) framework
-- [TypeScript v4](https://github.com/microsoft/TypeScript) codebase
-- [TypeORM](https://typeorm.io/) using Data Mapper pattern
-- [Docker](https://www.docker.com/) environment:
-  - Easily start local development using [Docker Compose](https://docs.docker.com/compose/) with single command `npm run docker:dev`
-  - Connect to different staging or production environments `npm run docker:[stage|prod]`
-  - Ready for **microservices** development and deployment.  
-    Once API changes are made, just build and push new docker image with your favourite CI/CD tool  
-    `docker build -t <username>/api-boilerplate:latest .`  
-    `docker push <username>/api-boilerplate:latest`
-  - Run unit, integration (or setup with your frontend E2E) tests as `docker exec -ti be_boilerplate_test sh` and `npm run test`
-- Contract first REST API design:
-  - never break API again with HTTP responses and requests payloads using [type definitions](./src/types/express/index.d.ts)
-  - Consistent schema error [response](./src/utils/response/custom-error/types.ts). Your frontend will always know how to handle errors thrown in `try...catch` statements 💪
-- JWT authentication and role based authorization using custom middleware
-- Set local, stage or production [environmental variables](./config) with [type definitions](./src/types/ProcessEnv.d.ts)
-- Logging with [morgan](https://github.com/expressjs/morgan)
-- Unit and integration tests with [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/)
-- Linting with [ESLint](https://eslint.org/)
-- [Prettier](https://prettier.io/) code formatter
-- Git hooks with [Husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged)
-- Automated npm & Docker dependency updates with [Renovate](https://github.com/renovatebot/renovate) (set to patch version only)
-- Commit messages must meet [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) format.  
-  After staging changes just run `npm run commit` and get instant feedback on your commit message formatting and be prompted for required fields by [Commitizen](https://github.com/commitizen/cz-cli)
+  9
 
-## Other awesome boilerplates:
+3.	Тестування API. Використовуючи надану в репозиторії Postman-колекцію, тестуємо ендпоінти додатку.
 
-Each boilerplate comes with it's own flavor of libraries and setup, check out others:
+  10
 
-- [Express and TypeORM with TypeScript](https://github.com/typeorm/typescript-express-example)
-- [Node.js, Express.js & TypeScript Boilerplate for Web Apps](https://github.com/jverhoelen/node-express-typescript-boilerplate)
-- [Express boilerplate for building RESTful APIs](https://github.com/danielfsousa/express-rest-es2017-boilerplate)
-- [A delightful way to building a RESTful API with NodeJs & TypeScript by @w3tecch](https://github.com/w3tecch/express-typescript-boilerplate)
+  11
 
-[build-badge]: https://github.com/mkosir/express-typescript-typeorm-boilerplate/actions/workflows/main.yml/badge.svg
-[build-url]: https://github.com/mkosir/express-typescript-typeorm-boilerplate/actions/workflows/main.yml
-[typescript-badge]: https://badges.frapsoft.com/typescript/code/typescript.svg?v=101
-[typescript-url]: https://github.com/microsoft/TypeScript
-[prettier-badge]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg
-[prettier-url]: https://github.com/prettier/prettier
+  Використовуємо отриманий токен для надсилання запитів до захищених ендпонітів, щоб перевірити їхню працездатність 
 
-## Contributing
+  12
 
-All contributions are welcome!
+  13
