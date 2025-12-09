@@ -176,7 +176,7 @@ export class Position {
 1. Створення та впровадження сервісного шару  
 Створюємо папку services у корені src. Для кожної сутності створюємо єдиний сервіс-клас. Реалізуємо всю логіку взаємодії для кожного сервісу
 
-  1
+  ![1](https://github.com/johuirmbegytm/typeorm-express-typescript/blob/main/images/6/1.png)
 
 Переносимо логіку з контролера. Вирізаємо всю логіку взаємодії з репозиторієм (AppDataSource.getRepository(...)) з функцій-контролерів і переносимо її у відповідні методи новоствореного сервіс-класу.
 
@@ -184,7 +184,7 @@ export class Position {
 
 Додаємо перевірку вхідних даних, створюючи асинхронні middleware-функції.
 
-  2
+  ![2](https://github.com/johuirmbegytm/typeorm-express-typescript/blob/main/images/6/2.png)
 
 Створюємо та реалізовуємо функцію-валідатор. Експортуємо з нього async функцію, що перевіряє req.body за допомогою функції з бібліотеки validator. У разі помилки функція має викидати new AppError(…).
 
@@ -194,13 +194,13 @@ export class Position {
 Робимо відповіді нашого API контрольованими та безпечними.  
 Створюємо клас DTO. Створюємо файл, що описує публічну структуру відповіді. Його конструктор має приймати об'єкт entity.
 
-  3
+  ![3](https://github.com/johuirmbegytm/typeorm-express-typescript/blob/main/images/6/3.png)
 
 Тестування запитів у Postman:
 Отримання працівників:
 
-  4
+  ![4](https://github.com/johuirmbegytm/typeorm-express-typescript/blob/main/images/6/4.png)
   
 Отримання посад:
 
-  5
+  ![5](https://github.com/johuirmbegytm/typeorm-express-typescript/blob/main/images/6/5.png)
