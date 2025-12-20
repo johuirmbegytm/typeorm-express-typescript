@@ -204,3 +204,66 @@ export class Position {
 Отримання посад:
 
   ![5](https://github.com/johuirmbegytm/typeorm-express-typescript/blob/main/images/6/5.png)
+
+# Лабораторно-практична робота №8-9
+## Full-stack інтеграція: розробка UI на базі професійного бойлерплейту
+### Мета: Пройти повний, реалістичний цикл розробки: від проєктування інтерфейсу до його інтеграції з REST API, використовуючи професійний набір інструментів. Навчитись керувати серверним станом за допомогою TanStack Query, будувати надійні форми з React Hook Form та Zod, та організовувати навігацію за допомогою TanStack Router.
+### Завдання: Створити повноцінний, сучасний та надійний клієнтський додаток на базі бойлерплейту vite-react-boilerplate. Не просто змусити UI працювати, а зробити це, використовуючи надані інструменти за їхнім прямим призначенням.
+#### Хід роботи:
+1. Налаштування проєкту та API-клієнта
+Налаштовуємо змінні оточення:
+У корені фронтенд-проєкту створюємо файл .env за зразком .env.example. Додаємо до нього адресу нашого API
+Для базового завдання отримуємо токен доступу через Postman та додаємо його у файл: ```VITE_API_AUTH_TOKEN="your.jwt.token.here"```.
+Налаштовуємо ```Axios```:
+Встановлюємо ```Axios```:
+```pnpm install axios```
+Створюємо файл для налаштування (```src/lib/axios.ts```). Налаштовуємо інстанс Axios з baseURL та інтерцептором для обробки помилок.
+
+![1](https://github.com/johuirmbegytm/typeorm-express-typescript/blob/main/images/8-9/1.png)
+
+2. Організація роботи з ```API``` за допомогою ```TanStack Query```
+Замість ```useState + useEffect``` для роботи з даними з сервера ми будемо використовувати ```TanStack Query```.
+
+Створюємо хуки для запитів. Для кожної сутності створіть окремий файл з хуками, які інкапсулюють логіку запитів.
+
+![2](https://github.com/johuirmbegytm/typeorm-express-typescript/blob/main/images/8-9/2.png)
+
+3. Налаштування маршрутизації за допомогою ```TanStack Router```
+
+Визначаємо маршрути для сторінок нашого додатку. Оскільки бойлерплейт використовує файлову систему для маршрутизації, нам потрібно буде лише додати свої файли роутів у відповідну структуру ```src/routes```
+
+![3](https://github.com/johuirmbegytm/typeorm-express-typescript/blob/main/images/8-9/3.png)
+
+4. Реалізація ```UI``` для ```CRUD-операцій```
+Створюємо сторінки, використовуючи заздалегіть підготовлені хуки та інструменти. Для кожної сутності у відповідну структуру ```src/pages``` створюємо три сторінки: ```EntityListPage.tsx```; ```CreateEntityPage.tsx```; ```EditEntityPage.tsx```.
+
+![4](https://github.com/johuirmbegytm/typeorm-express-typescript/blob/main/images/8-9/4.png)
+
+5. Реалізація ```UI``` для логіну
+Створюємо файл ```src/store/authStore.ts```.
+```typescript
+// src/stores/authStore.ts
+import { create } from 'zustand';
+
+interface AuthState {
+  token: string | null;
+  setToken: (token: string | null) => void;
+  clearToken: () => void;
+  isAuthenticated: () => boolean;
+}
+
+export const useAuthStore = create<AuthState>((set, get) => ({
+  token: null,
+  
+  setToken: (token) => set({ token }),
+  
+  clearToken: () => set({ token: null }),
+  
+  isAuthenticated: () => !!get().token,
+}));
+```
+Оновлюємо ```Axios``` (динамічний токен). ```Axios``` має брати токен не з ```.env```, а зі сховища ```Zustand```
+Створюємо сторінку логіну (```/login```) з формою на базі ```React Hook Form```. У відповідну директорію (```src/features/auth/```) створюємо API (```api.ts```) та мутацію useLogin для надсилання запиту на ```/auth/login```. Створюємо файл типів (```types.ts```)
+
+Створюємо сторінку логіну (```pages/Login.tsx```). Додаємо маршрут (```src/routes/login.tsx```).
+
