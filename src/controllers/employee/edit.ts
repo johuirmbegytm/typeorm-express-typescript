@@ -1,14 +1,22 @@
+// src/controllers/employee/edit.ts
 import { Request, Response, NextFunction } from 'express';
 import { employeeService } from '../../services/EmployeeService';
 import { EmployeeResponseDTO } from '../../dto/EmployeeResponseDTO';
 
-export const edit = async (req: Request, res: Response, next: NextFunction) => {
-  const id = parseInt(req.params.id);
+export const edit = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const employee = await employeeService.update(id, req.body);
-    if (!employee) return next(new Error('Employee not found'));
-    res.customSuccess(200, 'Employee updated', new EmployeeResponseDTO(employee));
+    const { id } = req.params;
+    const updatedEmployee = await employeeService.update(Number(id), req.body);
+
+    if (!updatedEmployee) {
+      return res.status(404).json({ message: 'Співробітник не знайдений' });
+    }
+
+    // ← ключовий фікс: обгортаємо в data, як в list і show
+    return res.json({
+      data: new EmployeeResponseDTO(updatedEmployee),
+    });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 };

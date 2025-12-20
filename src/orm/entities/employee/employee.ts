@@ -31,9 +31,12 @@ export class Employee {
   })
   hire_date: Date;
 
-  // Связь с таблицей Position
-  // Поле в БД будет называться 'id_position' благодаря декоратору @JoinColumn
-  @ManyToOne(() => Position)
+  // ← Явне поле для foreign key (дублює @JoinColumn)
+  @Column({ name: 'id_position', nullable: true })
+  id_position: number | null;
+
+  // Реляція
+  @ManyToOne(() => Position, { nullable: true })  // nullable: true, щоб можна було null
   @JoinColumn({ name: 'id_position' })
-  position: Position;
+  position: Position | null;  // ← теж null, бо посада може бути відсутня
 }
